@@ -4,7 +4,7 @@
   "description": "Chrome extension for recording and transcribing Google Meet meetings",
   "type": "module",
   "scripts": {
-    "build": "npx tsc && cp -r public dist/public && cp manifest.json dist/ && cp src/popup/popup.html dist/popup/",
+    "build": "npx tsc && shx cp -r public dist/public && shx cp manifest.json dist/ && shx cp src/popup/popup.html dist/popup/",
     "watch": "npx tsc --watch",
     "test": "vitest"
   },
@@ -20,6 +20,7 @@
     "@types/react-dom": "^18.3.7",
     "@types/uuid": "^9.0.8",
     "@vitejs/plugin-react": "^4.2.1",
+    "shx": "^0.4.0",
     "typescript": "^5.9.3",
     "vite": "^5.0.8",
     "vitest": "^1.1.0"
