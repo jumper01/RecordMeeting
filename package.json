@@ -1,0 +1,12 @@
+{
+  "name": "recordmeeting",
+  "version": "1.0.0",
+  "description": "RecordMeeting - Chrome extension for recording and transcribing Google Meet meetings",
+  "scripts": {
+    "extension:install": "cd extension && npm install",
+    "extension:build": "cd extension && npm run build",
+    "extension:watch": "cd extension && npm run watch",
+    "build": "cd extension && npm run build",
+    "install": "cd extension && npm install"
+  }
+}
