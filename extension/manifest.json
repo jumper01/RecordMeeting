@@ -7,7 +7,6 @@
     "storage",
     "activeTab",
     "scripting",
-    "audio",
     "clipboardWrite",
     "clipboardRead"
   ],
@@ -15,14 +14,14 @@
     "https://meet.google.com/*"
   ],
   "background": {
-    "service_worker": "src/background/background.ts",
+    "service_worker": "background/background.js",
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["https://meet.google.com/*"],
-      "js": ["src/content/content.ts"],
-      "css": ["src/content/content.css"],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"],
       "run_at": "document_idle"
     }
   ],
@@ -43,7 +42,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["src/content/*"],
+      "resources": ["content/*"],
       "matches": ["https://meet.google.com/*"]
     }
   ]
