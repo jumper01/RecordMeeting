@@ -4,24 +4,27 @@
   "description": "Chrome extension for recording and transcribing Google Meet meetings",
   "type": "module",
   "scripts": {
-    "build": "npx tsc && shx cp -r public dist/public && shx cp manifest.json dist/ && shx cp src/popup/popup.html dist/popup/",
+    "build:tsc": "npx tsc",
+    "build:esbuild": "npx esbuild src/background/background.ts --outfile=dist/background/background.js --format=esm --platform=browser --bundle && npx esbuild src/content/content.ts --outfile=dist/content/content.js --format=esm --platform=browser --bundle && npx esbuild src/content/googleMeetAdapter.ts --outfile=dist/content/googleMeetAdapter.js --format=esm --platform=browser --bundle && npx esbuild src/pages/Dashboard.tsx --outfile=dist/pages/Dashboard.js --format=esm --platform=browser --bundle && npx esbuild src/pages/MeetingDetails.tsx --outfile=dist/pages/MeetingDetails.js --format=esm --platform=browser --bundle && npx esbuild src/popup/popup.tsx --outfile=dist/popup/popup.js --format=esm --platform=browser --bundle && npx esbuild src/services/database.ts --outfile=dist/services/database.js --format=esm --platform=browser --bundle && npx esbuild src/services/storageService.ts --outfile=dist/services/storageService.js --format=esm --platform=browser --bundle && npx esbuild src/services/transcriptionService.ts --outfile=dist/services/transcriptionService.js --format=esm --platform=browser --bundle && npx esbuild src/services/deepSeekService.ts --outfile=dist/services/deepSeekService.js --format=esm --platform=browser --bundle && npx esbuild src/types/types.ts --outfile=dist/types/types.js --format=esm --platform=browser --bundle && npx esbuild src/utils/constants.ts --outfile=dist/utils/constants.js --format=esm --platform=browser --bundle && npx esbuild src/utils/formatters.ts --outfile=dist/utils/formatters.js --format=esm --platform=browser --bundle",
+    "build": "npm run build:tsc && shx rm -rf dist && shx mkdir -p dist/public && shx mkdir -p dist/popup && shx cp -r public dist/public && shx cp manifest.json dist/ && shx cp src/popup/popup.html dist/popup/ && npm run build:esbuild",
     "watch": "npx tsc --watch",
     "test": "vitest"
   },
   "dependencies": {
-    "dexie": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "dexie": "^3.2.5"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.254",
-    "@types/react": "^18.3.31",
-    "@types/react-dom": "^18.3.7",
-    "@types/uuid": "^9.0.8",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "^4.2.1",
-    "shx": "^0.4.0",
-    "typescript": "^5.9.3",
+    "esbuild": "^0.20.2",
+    "shx": "^0.3.4",
+    "typescript": "^5.3.3",
     "vite": "^5.0.8",
     "vitest": "^1.1.0"
   }
