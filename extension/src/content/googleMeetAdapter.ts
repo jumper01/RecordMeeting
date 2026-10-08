@@ -249,7 +249,7 @@ export class GoogleMeetAdapter {
   public setupObserver(callback: () => void): MutationObserver {
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
-        if (mutation.type === 'childList' || mutation.type === 'subtree') {
+        if (mutation.type === 'childList' || mutation.type === 'attributes' || mutation.type === 'characterData') {
           const wasInMeeting = this.isInMeeting();
           const nowInMeeting = this.isInMeeting();
           

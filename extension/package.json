@@ -4,23 +4,23 @@
   "description": "Chrome extension for recording and transcribing Google Meet meetings",
   "type": "module",
   "scripts": {
-    "build": "tsc && cp -r public dist/public && cp manifest.json dist/",
-    "watch": "tsc --watch",
+    "build": "npx tsc && cp -r public dist/public && cp manifest.json dist/ && cp src/popup/popup.html dist/popup/",
+    "watch": "npx tsc --watch",
     "test": "vitest"
   },
   "dependencies": {
+    "dexie": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "uuid": "^9.0.0",
-    "dexie": "^3.2.5"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.254",
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@types/uuid": "^9.0.7",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@types/uuid": "^9.0.8",
     "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.3.3",
+    "typescript": "^5.9.3",
     "vite": "^5.0.8",
     "vitest": "^1.1.0"
   }

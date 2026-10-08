@@ -8,6 +8,8 @@ import {
   MeetingInfo,
   Message,
   MessageTypes,
+  Summary,
+  ActionItem,
 } from '../types/types';
 import { MESSAGE_TYPES, NOTIFICATION_TYPES } from '../utils/constants';
 
@@ -344,7 +346,7 @@ async function generateSummary(meetingId: string) {
 
     // Mock summary generation
     // In a real implementation, you would call DeepSeek API
-    const mockSummary = {
+    const mockSummary: Partial<Omit<Summary, 'id' | 'meetingId' | 'status' | 'createdAt'>> = {
       executiveSummary: 'This was a productive meeting where the team discussed project updates and next steps.',
       keyPoints: [
         'Project timeline was reviewed',
@@ -355,18 +357,7 @@ async function generateSummary(meetingId: string) {
         'Project deadline extended by 2 weeks',
         'Additional resources allocated to the project',
       ],
-      actionItems: [
-        {
-          id: uuidv4(),
-          meetingId,
-          task: 'Update project timeline',
-          owner: 'Project Manager',
-          dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          status: 'open',
-          createdAt: Date.now(),
-          updatedAt: Date.now(),
-        },
-      ],
+      actionItems: [],
       openQuestions: [
         'What are the risks of the extended timeline?',
       ],
@@ -380,9 +371,17 @@ async function generateSummary(meetingId: string) {
     await StorageService.updateSummaryStatus(meetingId, 'completed', mockSummary);
 
     // Save action items
-    for (const actionItem of mockSummary.actionItems) {
+    const mockActionItems = [
+      {
+        task: 'Update project timeline',
+        owner: 'Project Manager',
+        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        status: 'open' as const,
+      },
+    ];
+    for (const actionItem of mockActionItems) {
       await StorageService.createActionItem(
-        actionItem.meetingId,
+        meetingId,
         actionItem.task,
         actionItem.owner,
         actionItem.dueDate,

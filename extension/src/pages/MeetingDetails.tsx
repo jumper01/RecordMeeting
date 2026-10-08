@@ -235,7 +235,12 @@ ${summary.importantTopics.map((topic, i) => `${i + 1}. ${topic}`).join('\n')}
         const newSummary: Summary = {
           id: `sum-${Date.now()}`,
           meetingId,
-          ...summaryData,
+          executiveSummary: summaryData.executiveSummary || '',
+          keyPoints: summaryData.keyPoints || [],
+          decisions: summaryData.decisions || [],
+          actionItems: summaryData.actionItems || [],
+          openQuestions: summaryData.openQuestions || [],
+          importantTopics: summaryData.importantTopics || [],
           status: 'completed',
           createdAt: Date.now(),
         };

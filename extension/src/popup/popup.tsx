@@ -483,7 +483,12 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.recording.autoStart ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ recording: { ...settings?.recording, autoStart: !settings?.recording.autoStart } })}
+            onClick={() => handleSaveSettings({ recording: { 
+              defaultBehavior: settings?.recording.defaultBehavior || 'manual',
+              audioQuality: settings?.recording.audioQuality || 'medium',
+              autoStart: !settings?.recording.autoStart, 
+              notifications: settings?.recording.notifications || false 
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>
@@ -497,7 +502,12 @@ const PopupApp: React.FC = () => {
           <select 
             className="popup-settings-select"
             value={settings?.recording.audioQuality || 'medium'}
-            onChange={(e) => handleSaveSettings({ recording: { ...settings?.recording, audioQuality: e.target.value as any } })}
+            onChange={(e) => handleSaveSettings({ recording: { 
+              defaultBehavior: settings?.recording.defaultBehavior || 'manual',
+              audioQuality: e.target.value as 'low' | 'medium' | 'high',
+              autoStart: settings?.recording.autoStart || false,
+              notifications: settings?.recording.notifications || false
+            } })}
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -512,7 +522,12 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.recording.notifications ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ recording: { ...settings?.recording, notifications: !settings?.recording.notifications } })}
+            onClick={() => handleSaveSettings({ recording: { 
+              defaultBehavior: settings?.recording.defaultBehavior || 'manual',
+              audioQuality: settings?.recording.audioQuality || 'medium',
+              autoStart: settings?.recording.autoStart || false,
+              notifications: !settings?.recording.notifications 
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>
@@ -530,7 +545,11 @@ const PopupApp: React.FC = () => {
           <select 
             className="popup-settings-select"
             value={settings?.transcription.language || 'en-US'}
-            onChange={(e) => handleSaveSettings({ transcription: { ...settings?.transcription, language: e.target.value } })}
+            onChange={(e) => handleSaveSettings({ transcription: { 
+              language: e.target.value,
+              speakerDetection: settings?.transcription.speakerDetection || true,
+              autoGenerate: settings?.transcription.autoGenerate || true
+            } })}
           >
             <option value="en-US">English (US)</option>
             <option value="en-GB">English (UK)</option>
@@ -547,7 +566,11 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.transcription.speakerDetection ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ transcription: { ...settings?.transcription, speakerDetection: !settings?.transcription.speakerDetection } })}
+            onClick={() => handleSaveSettings({ transcription: { 
+              language: settings?.transcription.language || 'en-US',
+              speakerDetection: !settings?.transcription.speakerDetection,
+              autoGenerate: settings?.transcription.autoGenerate || true
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>
@@ -560,7 +583,11 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.transcription.autoGenerate ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ transcription: { ...settings?.transcription, autoGenerate: !settings?.transcription.autoGenerate } })}
+            onClick={() => handleSaveSettings({ transcription: { 
+              language: settings?.transcription.language || 'en-US',
+              speakerDetection: settings?.transcription.speakerDetection || true,
+              autoGenerate: !settings?.transcription.autoGenerate
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>
@@ -577,7 +604,11 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.ai.autoSummarize ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ ai: { ...settings?.ai, autoSummarize: !settings?.ai.autoSummarize } })}
+            onClick={() => handleSaveSettings({ ai: { 
+              autoSummarize: !settings?.ai.autoSummarize,
+              generateActionItems: settings?.ai.generateActionItems || true,
+              generateDecisions: settings?.ai.generateDecisions || true
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>
@@ -590,7 +621,11 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.ai.generateActionItems ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ ai: { ...settings?.ai, generateActionItems: !settings?.ai.generateActionItems } })}
+            onClick={() => handleSaveSettings({ ai: { 
+              autoSummarize: settings?.ai.autoSummarize || true,
+              generateActionItems: !settings?.ai.generateActionItems,
+              generateDecisions: settings?.ai.generateDecisions || true
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>
@@ -603,7 +638,11 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.ai.generateDecisions ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ ai: { ...settings?.ai, generateDecisions: !settings?.ai.generateDecisions } })}
+            onClick={() => handleSaveSettings({ ai: { 
+              autoSummarize: settings?.ai.autoSummarize || true,
+              generateActionItems: settings?.ai.generateActionItems || true,
+              generateDecisions: !settings?.ai.generateDecisions
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>
@@ -622,7 +661,10 @@ const PopupApp: React.FC = () => {
             type="number"
             className="popup-settings-input"
             value={settings?.storage.retentionDays || 30}
-            onChange={(e) => handleSaveSettings({ storage: { ...settings?.storage, retentionDays: parseInt(e.target.value) || 0 } })}
+            onChange={(e) => handleSaveSettings({ storage: { 
+              retentionDays: parseInt(e.target.value) || 0,
+              autoDelete: settings?.storage.autoDelete || false
+            } })}
             min="0"
           />
         </div>
@@ -634,7 +676,10 @@ const PopupApp: React.FC = () => {
           </div>
           <div 
             className={`popup-settings-toggle ${settings?.storage.autoDelete ? 'active' : ''}`}
-            onClick={() => handleSaveSettings({ storage: { ...settings?.storage, autoDelete: !settings?.storage.autoDelete } })}
+            onClick={() => handleSaveSettings({ storage: { 
+              retentionDays: settings?.storage.retentionDays || 30,
+              autoDelete: !settings?.storage.autoDelete
+            } })}
           >
             <div className="popup-settings-toggle-thumb"></div>
           </div>

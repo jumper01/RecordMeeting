@@ -481,7 +481,7 @@ function startTimer(timerElement: HTMLElement) {
     
     interval = setInterval(() => {
       const now = Date.now();
-      elapsed = (now - startTime) / 1000;
+      elapsed = (now - (startTime || now)) / 1000;
       timerElement.textContent = formatTime(elapsed);
     }, 1000);
   }
